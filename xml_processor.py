@@ -8,8 +8,11 @@ def parse_xml(xml_path):
     xml_root = ET.parse(xml_path).getroot()
     return xml_root
 
-def get_chapter_page_numbers(xml_root, fonts):
-    """Create list of chapter page numbers"""
+def get_chapter_page_numbers(xml_root, fonts, closeness=3):
+    """
+    Create list of chapter page numbers.
+    `closeness` determines how far pages need to be apart in order to be considered a new chapter
+    """
     chapter_start_pages = list()
     for page in xml_root:
         page_num = int(page.attrib['number'])
@@ -22,7 +25,7 @@ def get_chapter_page_numbers(xml_root, fonts):
     # Clean chapter_start_pages by removing page numbers that are too close together
     previous_number = 0
     for page_number in chapter_start_pages:
-        if previous_number+3 > page_number:
+        if previous_number+closeness > page_number:
             chapter_start_pages.remove(previous_number)
         previous_number = page_number
     
