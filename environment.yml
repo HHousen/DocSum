@@ -1,0 +1,10 @@
+name: docsum
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - pytorch
+  - tqdm
+  - unidecode
+  - regex
+  - requests
