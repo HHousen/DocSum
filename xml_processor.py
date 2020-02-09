@@ -80,6 +80,9 @@ def process(xml_root, chapter_start_pages, heading_fonts, body_fonts):
                     text = unidecode(item.text)
                     # strip whitespace and replace newlines
                     text = text.strip().replace('\n', ' ').replace('\r', ' ')
+                    # remove dashes from lines that end in dashes
+                    if text[-1:] == "-":
+                        text = text[-1:]
                     # add space after each line
                     text += " "
 
