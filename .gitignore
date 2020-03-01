@@ -128,3 +128,4 @@ dmypy.json
 *.xml
 *.pdf
 *.txt
+.vscode

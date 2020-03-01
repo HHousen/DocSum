@@ -8,3 +8,6 @@ dependencies:
   - unidecode
   - regex
   - requests
+  - pip
+  - pip:
+    - transformers

@@ -1,4 +1,5 @@
 import bart_sum
+import presumm.presumm as presumm
 import os
 import xml_processor
 import argparse
@@ -9,6 +10,8 @@ parser.add_argument('file_path', metavar='PATH',
                     help='path to input file')
 parser.add_argument('-t', '--file_type', default="xml", choices=["pdf", "xml"],
                     help='type of file to summarize')
+parser.add_argument('-m', '--model', default="bart", choices=["bart", "presumm"],
+                    help='machine learning model choice')
 parser.add_argument('-cf', '--chapter_heading_font', nargs='+', default=0, type=int, metavar='N', required=True,
                     help='font of chapter titles')
 parser.add_argument('-bhf', '--body_heading_font', nargs='+', default=0, type=int, metavar='N', required=True,
@@ -37,15 +40,19 @@ book = xml_processor.process(xml_root, chapter_start_pages, heading_fonts=args.b
 
 # Summarize each section of the `book` list
 if not args.no_summarize:
-    # Load BART
-    bart = bart_sum.load_bart()
+    if args.model == "bart":
+        # Load BART
+        summarizer = bart_sum.BartSumSummarizer()
+    elif args.model == "presumm":
+        summarizer = presumm.PreSummSummarizer()
+    
     for chapter, content in tqdm(enumerate(book), total=len(book), desc="Chapter"):
         for heading in tqdm(content, desc="Heading"):
             document = content[heading]
             doc_length = len(document.split())
             min_len = int(doc_length/6)
             max_len_b = min_len+200
-            content[heading] = bart_sum.summarize(bart, document, min_len=min_len, max_len_b=max_len_b)
+            content[heading] = summarizer.summarize_string(document, min_len=min_len, max_len_b=max_len_b)
 
 # Save to file
 with open("output.txt", "w") as file:
