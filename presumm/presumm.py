@@ -21,7 +21,10 @@ from .utils_summarization import (
 
 
 class PreSummSummarizer():
-    def __init__(self, batch_size=4, device="cuda"):
+    def __init__(self, batch_size=4, device=None):
+        if not device:
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
         tokenizer = BertTokenizer.from_pretrained("bert-base-uncased", do_lower_case=True)
         model = BertAbs.from_pretrained("bertabs-finetuned-cnndm")
         model.to(device)

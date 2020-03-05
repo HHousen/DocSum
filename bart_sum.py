@@ -1,9 +1,11 @@
 import torch
 
 class BartSumSummarizer():
-    def __init__(self):
+    def __init__(self, device=None):
+        if not device:
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         bart = torch.hub.load('pytorch/fairseq', 'bart.large.cnn')
-        bart.cuda()
+        bart.to(device)
         bart.eval()
         bart.half()
         
