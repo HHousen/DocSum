@@ -59,7 +59,9 @@ DocSum
 ## Usage
 Output of `python main.py --help`:
 ```
-usage: main.py [-h] [-t {pdf,xml}] [-m {bart,presumm}] -cf N [N ...] -bhf N [N ...] -bf N [N ...] [-ns] [--output_xml_path PATH] PATH
+usage: main.py [-h] [-t {pdf,xml}] [-m {bart,presumm}] [--bart_checkpoint PATH] [--bart_state_dict_key PATH] [--bart_fairseq] -cf N [N ...]
+               -bhf N [N ...] -bf N [N ...] [-ns] [--output_xml_path PATH]
+               PATH
 
 Summarization of PDFs using BART
 
@@ -72,6 +74,13 @@ optional arguments:
                         type of file to summarize
   -m {bart,presumm}, --model {bart,presumm}
                         machine learning model choice
+  --bart_checkpoint PATH
+                        [BART Only] Path to optional checkpoint. Semsim is better model but will use more memory and is an additional 5GB
+                        download. (default: none, recommended: semsim)
+  --bart_state_dict_key PATH
+                        [BART Only] model state_dict key to load from pickle file specified with --bart_checkpoint (default: "model")
+  --bart_fairseq        [BART Only] Use fairseq model from torch hub instead of huggingface transformers library models. Can not use
+                        --bart_checkpoint if this option is supplied.
   -cf N [N ...], --chapter_heading_font N [N ...]
                         font of chapter titles
   -bhf N [N ...], --body_heading_font N [N ...]
@@ -86,7 +95,7 @@ optional arguments:
 Output of `python cmd_summarizer.py --help`
 
 ```bash
-usage: cmd_summarizer.py [-h] -m {bart,presumm}
+usage: cmd_summarizer.py [-h] -m {bart,presumm} [--bart_checkpoint PATH] [--bart_state_dict_key PATH] [--bart_fairseq]
 
 Summarization of text using CMD prompt
 
@@ -94,6 +103,13 @@ optional arguments:
   -h, --help            show this help message and exit
   -m {bart,presumm}, --model {bart,presumm}
                         machine learning model choice
+  --bart_checkpoint PATH
+                        [BART Only] Path to optional checkpoint. Semsim is better model but will use more memory and is an additional 5GB
+                        download. (default: none, recommended: semsim)
+  --bart_state_dict_key PATH
+                        [BART Only] model state_dict key to load from pickle file specified with --bart_checkpoint (default: "model")
+  --bart_fairseq        [BART Only] Use fairseq model from torch hub instead of huggingface transformers library models. Can not use
+                        --bart_checkpoint if this option is supplied.
 ```
 
 Output of `python -m presumm.run_summarization --help`

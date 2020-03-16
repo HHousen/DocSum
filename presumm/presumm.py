@@ -1,5 +1,3 @@
-# TODO: Get module/package imports working correctly
-
 import os
 import sys
 from collections import namedtuple

@@ -6,11 +6,19 @@ import presumm.presumm as presumm
 parser = argparse.ArgumentParser(description='Summarization of text using CMD prompt')
 parser.add_argument('-m', '--model', choices=["bart", "presumm"], required=True,
                     help='machine learning model choice')
+parser.add_argument('--bart_checkpoint', default=None, type=str, metavar='PATH',
+                    help='[BART Only] Path to optional checkpoint. Semsim is better model but will use more memory and is an additional 5GB download. (default: none, recommended: semsim)')
+parser.add_argument('--bart_state_dict_key', default='model', type=str, metavar='PATH',
+                    help='[BART Only] model state_dict key to load from pickle file specified with --bart_checkpoint (default: "model")')
+parser.add_argument('--bart_fairseq', action='store_true',
+                    help='[BART Only] Use fairseq model from torch hub instead of huggingface transformers library models. Can not use --bart_checkpoint if this option is supplied.')
 args = parser.parse_args()
 
 print("> Summarizer: Loading Model")
 if args.model == "bart":
-    summarizer = bart_sum.BartSumSummarizer()
+    summarizer = bart_sum.BartSumSummarizer(checkpoint=args.bart_checkpoint,
+                                            state_dict_key=args.bart_state_dict_key,
+                                            hg_transformers=(not args.bart_fairseq))
 elif args.model == "presumm":
     summarizer = presumm.PreSummSummarizer()
 
