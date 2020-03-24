@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from collections import namedtuple
 from tqdm import tqdm
 
@@ -36,6 +37,7 @@ class PreSummSummarizer():
 
         self.Batch = namedtuple("Batch", ["document_names", "batch_size", "src", "segs", "mask_src", "tgt_str"])
 
+        self.logger = logging.getLogger(__name__)
         self.tokenizer = tokenizer
         self.model = model
         self.symbols = symbols
@@ -136,6 +138,8 @@ class PreSummSummarizer():
     
     def summarize_string(self, input_string, max_len_a=None, max_len_b=200, min_len=50,
                          beam_size=5, alpha=0.95, block_trigram=True):
+        self.logger.debug("min_len: " + str(min_len) +" - max_len_a: " + str(max_len_a) + " - max_len_b: " + str(max_len_b) + " - beam_size: " + str(beam_size) + " - alpha: " + str(alpha) + " - block_trigram: " + str(block_trigram))
+        
         args = {
             "max_length": max_len_b,
             "min_length": min_len,

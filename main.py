@@ -3,6 +3,7 @@ import presumm.presumm as presumm
 import os
 import xml_processor
 import argparse
+import logging
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='Summarization of PDFs using BART')
@@ -28,7 +29,12 @@ parser.add_argument('-ns', '--no_summarize', action='store_true',
                     help='do not run the summarization step')
 parser.add_argument('--output_xml_path', metavar='PATH',
                     help='path to output XML file if `file_type` is `pdf`')
+parser.add_argument("-l", "--log", dest="logLevel", default='INFO',
+                    choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+                    help="Set the logging level (default: 'Info').")
 args = parser.parse_args()
+
+logging.basicConfig(format="%(asctime)s|%(name)s|%(levelname)s> %(message)s", level=logging.getLevelName(args.logLevel))
 
 if args.file_type == "pdf":
     if not args.output_xml_path:

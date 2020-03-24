@@ -3,6 +3,7 @@ from pathlib import Path
 import appdirs
 import gdown
 import torch
+import logging
 from transformers import BartTokenizer, BartForConditionalGeneration, BartConfig
 
 class BartSumSummarizer():
@@ -40,11 +41,14 @@ class BartSumSummarizer():
                 bart.eval()
                 bart.half()
         
+        self.logger = logging.getLogger(__name__)
         self.hg_transformers = hg_transformers
         self.bart = bart
 
     def summarize_string(self, source_line, min_len=55, max_len_a=0, max_len_b=140):
         """Summarize a single document"""
+        self.logger.debug("min_len: " + str(min_len) +" - max_len_a: " + str(max_len_a) + " - max_len_b: " + str(max_len_b))
+
         source_line = [source_line]
 
         if self.hg_transformers:

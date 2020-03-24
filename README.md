@@ -60,7 +60,7 @@ DocSum
 Output of `python main.py --help`:
 ```
 usage: main.py [-h] [-t {pdf,xml}] [-m {bart,presumm}] [--bart_checkpoint PATH] [--bart_state_dict_key PATH] [--bart_fairseq] -cf N [N ...]
-               -bhf N [N ...] -bf N [N ...] [-ns] [--output_xml_path PATH]
+               -bhf N [N ...] -bf N [N ...] [-ns] [--output_xml_path PATH] [-l {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
                PATH
 
 Summarization of PDFs using BART
@@ -90,12 +90,15 @@ optional arguments:
   -ns, --no_summarize   do not run the summarization step
   --output_xml_path PATH
                         path to output XML file if `file_type` is `pdf`
+  -l {DEBUG,INFO,WARNING,ERROR,CRITICAL}, --log {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        Set the logging level (default: 'Info').
 ```
 
 Output of `python cmd_summarizer.py --help`
 
-```bash
+```
 usage: cmd_summarizer.py [-h] -m {bart,presumm} [--bart_checkpoint PATH] [--bart_state_dict_key PATH] [--bart_fairseq]
+                         [-l {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
 
 Summarization of text using CMD prompt
 
@@ -110,10 +113,12 @@ optional arguments:
                         [BART Only] model state_dict key to load from pickle file specified with --bart_checkpoint (default: "model")
   --bart_fairseq        [BART Only] Use fairseq model from torch hub instead of huggingface transformers library models. Can not use
                         --bart_checkpoint if this option is supplied.
+  -l {DEBUG,INFO,WARNING,ERROR,CRITICAL}, --log {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        Set the logging level (default: 'Info').
 ```
 
 Output of `python -m presumm.run_summarization --help`
-```bash
+```
 usage: run_summarization.py [-h] --documents_dir DOCUMENTS_DIR [--summaries_output_dir SUMMARIES_OUTPUT_DIR] [--compute_rouge COMPUTE_ROUGE]
                             [--no_cuda NO_CUDA] [--batch_size BATCH_SIZE] [--min_length MIN_LENGTH] [--max_length MAX_LENGTH]
                             [--beam_size BEAM_SIZE] [--alpha ALPHA] [--block_trigram BLOCK_TRIGRAM]
