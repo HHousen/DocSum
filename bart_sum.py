@@ -62,7 +62,7 @@ class BartSumSummarizer():
         if self.hg_transformers:
             inputs = self.tokenizer.batch_encode_plus(source_line, max_length=1024, return_tensors='pt')
             # Generate Summary
-            summary_ids = self.bart.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], num_beams=4, max_length=max_len_b)
+            summary_ids = self.bart.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], num_beams=4, min_length=min_len, max_length=max_len_b)
 
             return [self.tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids][0]
         else:
