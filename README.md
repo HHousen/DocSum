@@ -2,6 +2,8 @@
 # DocSum
 > A tool to automatically summarize documents (or plain text) using either the BART or PreSumm Machine Learning Model.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hhousen/docsum/blob/master/DocSum.ipynb)
+
 **BART** ([BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.13461.pdf)) is the state-of-the-art in text summarization as of 02/02/2020. It is a "sequence-to-sequence model trained with denoising as pretraining objective" ([Documentation & Examples](https://github.com/pytorch/fairseq/blob/master/examples/bart/README.md)).
 
 **PreSumm** ([Text Summarization with Pretrained Encoders](https://arxiv.org/pdf/1908.08345.pdf)) applies BERT (Bidirectional Encoder Representations from Transformers) to text summarization by using "a novel document-level encoder based on BERT which is able to express the semantics of a document and obtain representations for its sentences." BERT represented "the latest incarnation of pretrained language models which have recently advanced a wide range of natural language processing tasks" at the time of writing ([Documentation & Examples](https://github.com/nlpyang/PreSumm)).
@@ -9,7 +11,7 @@
 ## Tasks
 
 1. Convert a PDF to XML and then interpret that XML file using the `font` property of each `text` element using [main.py](main.py). Utilizes the [xml.etree.elementtree](https://docs.python.org/3/library/xml.etree.elementtree.html) python library.
-2. Summarize raw text input using [cmd_summarizer.py](cmd_summarizer.py)
+2. Summarize raw text input using [cmd_summarizer.py](cmd_summarizer.py). You can run this in Google Colaboratory by clicking this button: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hhousen/docsum/blob/master/DocSum.ipynb)
 3. Summarize multiple text files using [presumm/run_summarization.py](presumm/run_summarization.py)
 
 ## Getting Started
