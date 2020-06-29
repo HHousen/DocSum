@@ -7,19 +7,20 @@ import logging
 from transformers import BartTokenizer, BartForConditionalGeneration, BartConfig
 
 class BartSumSummarizer():
-    def __init__(self, device=None, checkpoint=None, state_dict_key='model', pretrained="bart.large.cnn", hg_transformers=True):
+    def __init__(self, device=None, checkpoint=None, state_dict_key='model', pretrained="facebook/bart-large-cnn", hg_transformers=True):
         if not hg_transformers and checkpoint:
             raise Exception("hg_transformers must be set to True in order to load from checkpoint")
 
         if not device:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
-        # hugging face uses dashes and fairseq/torchhub uses dots (periods)
+        # huggingface uses dashes and fairseq/torchhub uses dots (periods)
         if pretrained:
             if hg_transformers:
                 pretrained = pretrained.replace(".", "-")
             else:
-                pretrained = pretrained.replace("-", ".")
+                # only use the part after the "/"
+                pretrained = pretrained.split("/")[-1].replace("-", ".")
         
 
         if checkpoint != None and "semsim" in checkpoint:
