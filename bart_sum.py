@@ -54,6 +54,9 @@ class BartSumSummarizer():
         self.hg_transformers = hg_transformers
         self.bart = bart
 
+    def __call__(self, *args, **kwargs):
+        return self.summarize_string(*args, **kwargs)
+
     def summarize_string(self, source_line, min_len=55, max_len_a=0, max_len_b=140):
         """Summarize a single document"""
         self.logger.debug("min_len: " + str(min_len) +" - max_len_a: " + str(max_len_a) + " - max_len_b: " + str(max_len_b))

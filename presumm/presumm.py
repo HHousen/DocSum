@@ -44,6 +44,9 @@ class PreSummSummarizer():
         self.batch_size = batch_size
         self.device = device
 
+    def __call__(self, *args, **kwargs):
+        return self.summarize_string(*args, **kwargs)
+
     def collate(self, data, tokenizer, block_size, device):
         """ Collate formats the data passed to the data loader.
 
