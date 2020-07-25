@@ -121,11 +121,11 @@ class PreSummSummarizer():
             with open(file_path, "w") as output:
                 output.write(summary)
 
-    def summarize_folder(self, documents_dir, summaries_output_dir, max_len_a=None, max_len_b=200,
-                         min_len=50, beam_size=5, alpha=0.95, block_trigram=True):
+    def summarize_folder(self, documents_dir, summaries_output_dir, max_length=200,
+                         min_length=50, beam_size=5, alpha=0.95, block_trigram=True):
         args = {
-            "max_length": max_len_b,
-            "min_length": min_len,
+            "max_length": max_length,
+            "min_length": min_length,
             "beam_size": beam_size,
             "alpha": alpha,
             'block_trigram': block_trigram
@@ -139,13 +139,13 @@ class PreSummSummarizer():
             summaries = [self.format_summary(t) for t in translations]
             self.save_summaries(summaries, summaries_output_dir, batch.document_names)
     
-    def summarize_string(self, input_string, max_len_a=None, max_len_b=200, min_len=50,
+    def summarize_string(self, input_string, max_length=200, min_length=50,
                          beam_size=5, alpha=0.95, block_trigram=True):
-        self.logger.debug("min_len: " + str(min_len) +" - max_len_a: " + str(max_len_a) + " - max_len_b: " + str(max_len_b) + " - beam_size: " + str(beam_size) + " - alpha: " + str(alpha) + " - block_trigram: " + str(block_trigram))
+        self.logger.debug("min_length: " + str(min_length) +" - max_length: " + str(max_length) + " - beam_size: " + str(beam_size) + " - alpha: " + str(alpha) + " - block_trigram: " + str(block_trigram))
         
         args = {
-            "max_length": max_len_b,
-            "min_length": min_len,
+            "max_length": max_length,
+            "min_length": min_length,
             "beam_size": beam_size,
             "alpha": alpha,
             'block_trigram': block_trigram

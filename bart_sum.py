@@ -57,16 +57,16 @@ class BartSumSummarizer():
     def __call__(self, *args, **kwargs):
         return self.summarize_string(*args, **kwargs)
 
-    def summarize_string(self, source_line, min_len=55, max_len_a=0, max_len_b=140):
+    def summarize_string(self, source_line, min_length=55, max_length=140):
         """Summarize a single document"""
-        self.logger.debug("min_len: " + str(min_len) +" - max_len_a: " + str(max_len_a) + " - max_len_b: " + str(max_len_b))
+        self.logger.debug("min_length: " + str(min_length) +" - max_length: " + str(max_length))
 
         source_line = [source_line]
 
         if self.hg_transformers:
             inputs = self.tokenizer.batch_encode_plus(source_line, max_length=1024, return_tensors='pt')
             # Generate Summary
-            summary_ids = self.bart.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], num_beams=4, min_length=min_len, max_length=max_len_b)
+            summary_ids = self.bart.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], num_beams=4, min_length=min_length, max_length=max_length)
 
             return [self.tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids][0]
         else:
@@ -78,5 +78,5 @@ class BartSumSummarizer():
                 # no_repeat_ngram_size = ngram blocking such that this size ngram cannot be repeated in the generation
                 # https://fairseq.readthedocs.io/en/latest/command_line_tools.html
                 # print("max_len_b " + str(max_len_b) + "      min_len " + str(min_len))
-                hypotheses = self.bart.sample(source_line, beam=4, lenpen=2.0, max_len_a=max_len_a, max_len_b=max_len_b, min_len=min_len, no_repeat_ngram_size=3)
+                hypotheses = self.bart.sample(source_line, beam=4, lenpen=2.0, max_len_a=0, max_len_b=max_length, min_length=min_length, no_repeat_ngram_size=3)
             return hypotheses[0]

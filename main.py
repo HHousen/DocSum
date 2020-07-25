@@ -63,9 +63,9 @@ if not args.no_summarize:
         for heading in tqdm(content, desc="Heading"):
             document = content[heading]
             doc_length = len(document.split())
-            min_len = int(doc_length/6)
-            max_len_b = min_len+200
-            content[heading] = summarizer.summarize_string(document, min_len=min_len, max_len_b=max_len_b)
+            min_length = int(doc_length/6)
+            max_length = min_length+200
+            content[heading] = summarizer.summarize_string(document, min_length=min_length, max_length=max_length)
 
 # Save to file
 with open("output.txt", "w") as file:

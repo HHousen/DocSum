@@ -14,12 +14,12 @@ def do_summarize(contents):
     doc_length = len(document.split())
     logger.info("Document Length: " + str(doc_length))
 
-    min_len = int(doc_length/6)
-    logger.info("min_len: " + str(min_len))
-    max_len_b = min_len+200
-    logger.info(" max_len_b: " + str(max_len_b))
+    min_length = int(doc_length/6)
+    logger.info("min_length: " + str(min_length))
+    max_length = min_length+200
+    logger.info("max_length: " + str(max_length))
 
-    transcript_summarized = summarizer.summarize_string(document, min_len=min_len, max_len_b=max_len_b)
+    transcript_summarized = summarizer.summarize_string(document, min_length=min_length, max_length=max_length)
     with open("summarized.txt", 'a+') as file:
         file.write("\n" + str(datetime.datetime.now()) + ":\n")
         file.write(transcript_summarized + "\n")
