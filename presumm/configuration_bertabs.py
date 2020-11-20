@@ -23,12 +23,12 @@ logger = logging.getLogger(__name__)
 
 
 BERTABS_FINETUNED_CONFIG_MAP = {
-    "bertabs-finetuned-cnndm": "https://s3.amazonaws.com/models.huggingface.co/bert/remi/bertabs-finetuned-cnndm-extractive-abstractive-summarization/config.json",
+    "bertabs-finetuned-cnndm": "https://huggingface.co/remi/bertabs-finetuned-cnndm-extractive-abstractive-summarization/resolve/main/config.json",
 }
 
 
 class BertAbsConfig(PretrainedConfig):
-    r""" Class to store the configuration of the BertAbs model.
+    r"""Class to store the configuration of the BertAbs model.
 
     Arguments:
         vocab_size: int
@@ -56,12 +56,11 @@ class BertAbsConfig(PretrainedConfig):
         dec_ff_size: int
             The size of the decoder's feed-forward layers.
         dec_dropout: int
-            The dropout probabilitiy for all fully connected layers in the
+            The dropout probability for all fully connected layers in the
             embeddings, layers, pooler and also the attention probabilities in
             the decoder.
     """
 
-    pretrained_config_archive_map = BERTABS_FINETUNED_CONFIG_MAP
     model_type = "bertabs"
 
     def __init__(
