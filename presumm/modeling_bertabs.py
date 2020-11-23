@@ -930,7 +930,7 @@ class Translator(object):
                     b = batch_offset[i]
                     if end_condition[i]:
                         is_finished[i].fill_(1)
-                    finished_hyp = is_finished[i].nonzero().view(-1)
+                    finished_hyp = is_finished[i].nonzero(as_tuple=False).view(-1)
                     # Store finished hypotheses for this batch.
                     for j in finished_hyp:
                         hypotheses[b].append((topk_scores[i, j], predictions[i, j, 1:]))
@@ -941,7 +941,7 @@ class Translator(object):
 
                         results["scores"][b].append(score)
                         results["predictions"][b].append(pred)
-                non_finished = end_condition.eq(0).nonzero().view(-1)
+                non_finished = end_condition.eq(0).nonzero(as_tuple=False).view(-1)
                 # If all sentences are translated, no need to go further.
                 if len(non_finished) == 0:
                     break
